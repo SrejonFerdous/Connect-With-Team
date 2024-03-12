@@ -1,0 +1,76 @@
+CREATE TABLE Employee (
+    EmployeeID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Name varchar(100) NOT NULL,
+    Age int CHECK(Age >= 20 AND Age <= 65),
+    Gender varchar(10) NOT NULL CHECK(Gender='Male' OR Gender='Female'),
+    Email varchar(50) NOT NULL,
+    Employee_Status varchar(20) CHECK(Employee_Status = 'Regular' OR Employee_Status = 'Retired'),
+    Address varchar(50) NOT NULL,
+    Phone_number varchar(20) NOT NULL UNIQUE,
+    Joining_Date datetime NOT NULL
+);
+INSERT into Employee(EmployeeID,Name,Age,Gender,Email,Employee_Status,Address,Phone_Number,Joining_Date) VALUES(1,'Srejon Ferdous',22,'Male','srejonferdous@gmail.com','Regular','Dhaka','01766551111','2023-09-12');
+                                                                                                                
+INSERT into Employee(Name,Age,Gender,Email,Employee_Status,Address,Phone_Number,Joining_Date) VALUES('Shadman Ifaz Alindo',22,'Male','alindo@gmail.com','Regular','Dhaka','01766552211','2023-09-12');
+
+INSERT into Employee(Name,Age,Gender,Email,Employee_Status,Address,Phone_Number,Joining_Date) VALUES('Elhum Uddin',22,'Male','elhum@gmail.com','Regular','Dhaka','01766552233','2023-09-12');
+
+CREATE TABLE Department(
+    DepartmentID int NOT NULL PRIMARY KEY,
+    EmployeeID int,
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID),
+    DepartmentName varchar(50) NOT NUll,
+    DepartmentManager varchar(50) NOT NULL   
+ );
+ INSERT INTO Department(DepartmentID,EmployeeID,DepartmentName,DepartmentManager) VALUES(1,1,'Marketing','Mr Mannan');
+ INSERT INTO Department(DepartmentID,EmployeeID,DepartmentName,DepartmentManager) VALUES(2,2,'Finance','Mr Kalam');
+ INSERT INTO Department(DepartmentID,EmployeeId,DepartmentName,DepartmentManager) VALUES(3,3,'Accounts','Mr Shuvo');
+
+CREATE TABLE Salary(
+    SalaryID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    EmployeeID int NOT NUll,
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID),
+    SalaryAmount int,
+    From_Date datetime NOT NULL,
+    To_Date datetime NOT NULL   
+ );
+ INSERT INTO Salary(SalaryID,EmployeeID,SalaryAmount,From_Date,To_Date) VALUES(1,1,30000,'2023-09-12','2023-10-12');
+ INSERT INTO Salary(EmployeeID,SalaryAmount,From_Date,To_Date) VALUES(2,30000,'2023-09-12','2023-10-12');
+ INSERT INTO Salary(EmployeeID,SalaryAmount,From_Date,To_Date) VALUES(3,30000,'2023-09-12','2023-10-12');
+
+CREATE TABLE Expertise(
+    ExpertID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    EmployeeID int NOT NUll,
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID),
+    ExpertType varchar(50) NOT NULL
+ );
+ INSERT INTO Expertise(ExpertID,EmployeeID,ExpertType) VALUES(1,1,'Marketing');
+ INSERT INTO Expertise(EmployeeID,ExpertType) VALUES(2,'Finance');
+ INSERT INTO Expertise(EmployeeID,ExpertType) VALUES(3,'Accounting');
+
+CREATE TABLE Annual_Leave(
+    LeaveID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    EmployeeID int NOT NUll,
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID),
+    LeavesTaken int NOT NULL,
+    LeavesRemaining int NOT NULL,
+    TypeOfLeave varchar(50) NOT NULL CHECK(TypeOfLeave = 'Regular' OR TypeOfLeave = 'Emergency')
+ );
+ INSERT INTO Annual_Leave(LeaveID,EmployeeID,LeavesTaken,LeavesRemaining,TypeOfLeave) VALUES(1,1,1,9,'Emergency');
+ INSERT INTO Annual_Leave(EmployeeID,LeavesTaken,LeavesRemaining,TypeOfLeave) VALUES(2,1,9,'Regular');
+ INSERT INTO Annual_Leave(EmployeeID,LeavesTaken,LeavesRemaining,TypeOfLeave) VALUES(3,2,8,'Regular');
+
+CREATE TABLE Working_Time(
+    AccessibilityID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    EmployeeID int NOT NUll,
+    FOREIGN KEY(EmployeeID) REFERENCES Employee(EmployeeID),
+    Starting_Time time NOT NUll,
+    Ending_Time time NOT NUll,
+    WorkDate date NOT NULL    
+ );
+ INSERT INTO Working_Time(AccessibilityID,EmployeeID,Starting_Time,Ending_Time,WorkDate) VALUES(1,1,'8:00','5:00','2023-09-13');
+ INSERT INTO Working_Time(EmployeeID,Starting_Time,Ending_Time,WorkDate) VALUES(2,'8:00','5:00','2023-09-13');
+ INSERT INTO Working_Time(EmployeeID,Starting_Time,Ending_Time,WorkDate) VALUES(3,'8:00','5:00','2023-09-13');
+
+
+
